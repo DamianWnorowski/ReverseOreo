@@ -14,28 +14,23 @@ pageEncoding="ISO-8859-1"%>
 <div class="container">
     <h1>Sign Up</h1>
     
-    <form class="form-horizontal" action="/action_page.php">
+    <form class="form-horizontal" action="SignUpServlet" method="post">
+   
         <div class="form-group col-sm-12">
             <div class="col-sm-6">
-                <label for="Username">Username:</label>
-                <input type="text" class="form-control" id="Username" placeholder="Username" name="Username">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" placeholder="Username" name="username">
             </div>
         </div>
         <div class="form-group col-sm-12">
             <div class="col-sm-6">
-                <label for="Password">Password:</label> 
-                <input type="text" class="form-control" id="Password" placeholder="Password" name="Password">
+                <label for="userpassword">Password:</label> 
+                <input type="password" class="form-control" id="userpassword" placeholder="Password" name="userpassword">
             </div>
         </div>
-        <div class="form-group col-sm-12">
-                <div class="col-sm-6">
-                    <label for="Address">Address:</label> 
-                    <input type="text" class="form-control" id="Address" placeholder="Address" name="Password">
-                </div>
-            </div>
         <div class="form-group col-sm-12">        
             <div class="col-sm-4">
-                <button type="button" class="btn btn-default">Submit</button>
+                <button type="submit" value="Create" class="btn btn-default">Submit</button>
                 <!-- <button type="submit" class="btn btn-default">Submit</button> -->
             </div>
         </div>    
