@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/* For hashing */
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+
 /**
  * Servlet implementation class SignUp
  */
@@ -41,7 +46,29 @@ public class SignUpServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String username = request.getParameter("username");
-		String password = request.getParameter("userpassword");
+		String plaintextPw = request.getParameter("userpassword");
+
+		String password = "";
+
+		try {
+			MessageDigest md;
+			md = MessageDigest.getInstance("SHA-512");
+			md.update(username.getBytes("UTF-8"));
+			byte[] bytes = md.digest(plaintextPw.getBytes("UTF-8"));
+			StringBuilder sb = new StringBuilder();
+			for(int i=0; i< bytes.length ;i++){
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+
+			password = sb.toString();
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("No such algorithm.");
+			e1.printStackTrace();
+		}
+		
+		password = password.substring(0, 20);
+		System.out.println("The password after hashing and truncating is " + password);
 		
 		try {
 	    	   Connection conn = MySQLConnUtils.getMySQLConnection();
