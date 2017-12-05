@@ -69,7 +69,7 @@ public class UserLogInServlet extends HttpServlet {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
-			String sql = "SELECT Username FROM UserAccounts WHERE Username='" + username + "' AND Password='"+ password + "';";
+			String sql = "SELECT Id FROM Customer WHERE Id='" + username + "' AND Password='"+ password + "';";
 			PreparedStatement statement = conn.prepareStatement(sql);
 
 
