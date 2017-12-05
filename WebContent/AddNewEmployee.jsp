@@ -6,7 +6,7 @@
 <jsp:include page="_nav.jsp"></jsp:include>
 
 
-<form class="form-horizontal" action="/action_page.php">
+<form class="form-horizontal" action="AddNewEmployeeServlet" method="post">
 <div class="form-group col-sm-6">	<!-- First name -->
     <div class="col-sm-12">
         <label for="fname">First Name:</label>
@@ -17,6 +17,28 @@
     <div class="col-sm-12">
         <label for="lname">Last Name:</label>
         <input type="text" class="form-control" id="lname" placeholder="Last Name" name="lname">
+    </div>
+</div>
+<div class="form-group col-sm-6">	<!-- Employee Id -->
+    <div class="col-sm-12">
+        <label for="id">Employee Username:</label>
+        <input type="text" class="form-control" id="id" placeholder="Username" name="id">
+    </div>
+</div>
+<div class="form-group col-sm-6">
+<div class="col-sm-4">
+    <label for="position">Position:</label>
+    <br></br>
+    <select name="position">
+    	<option value="customerservice">Customer Service</option>
+		<option value="manager">Manager</option>	
+	</select>
+</div>
+</div>
+<div class="form-group col-sm-6">	<!-- Employee Password -->
+    <div class="col-sm-12">
+        <label for="userpassword">Employee Password:</label>
+        <input type="password" class="form-control" id="userpassword" placeholder="password" name="userpassword">
     </div>
 </div>
 <div class="form-group col-sm-6">	<!-- SSN -->
@@ -118,7 +140,7 @@
 </div>
 <div class="form-group col-sm-6">        
 	<div class="col-sm-4">
-    <button type="button" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-default">Submit</button>
 </div>
 </div>
 </form>
