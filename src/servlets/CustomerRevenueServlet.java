@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SalesReportServlet
+ * Servlet implementation class CustomerRevenueServlet
  */
-@WebServlet("/SalesReportServlet")
-public class SalesReportServlet extends HttpServlet {
+//@WebServlet("/CustomerRevenueServlet")
+public class CustomerRevenueServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SalesReportServlet() {
+    public CustomerRevenueServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,59 +36,46 @@ public class SalesReportServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		String month = request.getParameter("month");
-		
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
 	       
-			String sql = "SELECT R.ResrDate, R.ResrNo, R.BookingFee,  R.TotalFare, "
-					+ "C.Id, P.FirstName, P.LastName, C.Email "
-					+ "FROM Reservation R, Customer C, Person P "
-					+ "WHERE MONTH(R.ResrDate) = " + month + " "
-					+ "AND R.AccountNo = C.AccountNo "
-					+ "AND C.Id = P.Id;";
+			String sql = "SELECT P.FirstName, P.LastName, P.Id, SUM(R.BookingFee) "
+					+ "AS TotalRevenue "
+					+ "FROM Person P, Customer C, Reservation R "
+					+ "WHERE P.Id = C.Id "
+					+ "AND C.AccountNo = R.AccountNo "
+					+ "GROUP BY P.Id "
+					+ "ORDER BY TotalRevenue "
+					+ "DESC LIMIT 1;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 		
 	       // Execute SQL statement returns a ResultSet object.
 			ResultSet rs = statement.executeQuery(sql);
-			List<beans.SalesInfoBeans> list = new ArrayList<beans.SalesInfoBeans>();
+			List<beans.CustomerRevenueBeans> list = new ArrayList<beans.CustomerRevenueBeans>();
 			while (rs.next()) {
-				String resrDate = rs.getString(1);
-				String resrNo = rs.getString(2);
-				String bookingFee = rs.getString(3);
-				String totalFare = rs.getString(4);
-				String id = rs.getString(5);
-				String firstName = rs.getString(6);
-				String lastName = rs.getString(7);
-				String email = rs.getString(8);
+				String firstName = rs.getString(1);
+				String lastName = rs.getString(2);
+				String id = rs.getString(3);
+				String totalRevenue = rs.getString(4);
 				
 				
 	    	   
-				beans.SalesInfoBeans info = new beans.SalesInfoBeans();
-				info.setResrDate(resrDate);
-				info.setResrNo(resrNo);
-				info.setBookingFee(bookingFee);
-				info.setTotalFare(totalFare);
-				info.setId(id);
+				beans.CustomerRevenueBeans info = new beans.CustomerRevenueBeans();
 				info.setFirstName(firstName);
 				info.setLastName(lastName);
-				info.setEmail(email);
+				info.setId(id);
+				info.setTotalRevenue(totalRevenue);
 				info.setList();
 				
 				list.add(info);
 	    	   
 			}
 			List<String> colNames = new ArrayList<String>();
-			colNames.add("Reservation Date");
-			colNames.add("Reservation Number");
-			colNames.add("Booking Fee");
-			colNames.add("Total Fare");
-			colNames.add("Customer Id");
 			colNames.add("First Name");
 			colNames.add("Last Name");
-			colNames.add("Email");
-			
+			colNames.add("Id");
+			colNames.add("Total Revenue");
 	       
 			request.setAttribute("colNames", colNames);
 			request.setAttribute("rowVal", list);
@@ -101,9 +88,8 @@ public class SalesReportServlet extends HttpServlet {
 	    } catch (SQLException | ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-	    }
-		
-		
+	    }		
+	
 	}
 
 	/**

@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SalesReportServlet
+ * Servlet implementation class ListRersrByNameServlet
  */
-@WebServlet("/SalesReportServlet")
-public class SalesReportServlet extends HttpServlet {
+@WebServlet("/ListResrByName")
+public class ListResrByNameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SalesReportServlet() {
+    public ListResrByNameServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,12 @@ public class SalesReportServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		String month = request.getParameter("month");
+		String firstname = request.getParameter("firstName");
+
+		String lastname = request.getParameter("lastName");
+//		String firstname = "Jane";
+//		String lastname = "Smith";
+		
 		
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
@@ -45,9 +50,11 @@ public class SalesReportServlet extends HttpServlet {
 			String sql = "SELECT R.ResrDate, R.ResrNo, R.BookingFee,  R.TotalFare, "
 					+ "C.Id, P.FirstName, P.LastName, C.Email "
 					+ "FROM Reservation R, Customer C, Person P "
-					+ "WHERE MONTH(R.ResrDate) = " + month + " "
-					+ "AND R.AccountNo = C.AccountNo "
-					+ "AND C.Id = P.Id;";
+					+ "WHERE R.AccountNo = C.AccountNo "
+					+ "AND C.Id = P.Id "
+					+ "AND P.FirstName = '" + firstname + "'"
+					+ "AND P.LastName = '" + lastname + "';";
+					
 			PreparedStatement statement = conn.prepareStatement(sql);
 		
 	       // Execute SQL statement returns a ResultSet object.
@@ -102,7 +109,6 @@ public class SalesReportServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 	    }
-		
 		
 	}
 

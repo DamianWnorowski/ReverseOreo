@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SalesReportServlet
+ * Servlet implementation class ReservationListServlet
  */
-@WebServlet("/SalesReportServlet")
-public class SalesReportServlet extends HttpServlet {
+@WebServlet("/ListByFlight")
+public class ListByFlightServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SalesReportServlet() {
+    public ListByFlightServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,8 +35,9 @@ public class SalesReportServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("inflight");
+		String flightNumber = request.getParameter("flightNumber");
 		
-		String month = request.getParameter("month");
 		
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
@@ -45,9 +46,10 @@ public class SalesReportServlet extends HttpServlet {
 			String sql = "SELECT R.ResrDate, R.ResrNo, R.BookingFee,  R.TotalFare, "
 					+ "C.Id, P.FirstName, P.LastName, C.Email "
 					+ "FROM Reservation R, Customer C, Person P "
-					+ "WHERE MONTH(R.ResrDate) = " + month + " "
+					+ "WHERE R.ResrNo "
+					+ "IN (SELECT I.ResrNo FROM Includes I WHERE I.FlightNo = " + flightNumber + ") "
 					+ "AND R.AccountNo = C.AccountNo "
-					+ "AND C.Id = P.Id;";
+					+ "And P.Id = C.Id;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 		
 	       // Execute SQL statement returns a ResultSet object.
@@ -102,7 +104,6 @@ public class SalesReportServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 	    }
-		
 		
 	}
 

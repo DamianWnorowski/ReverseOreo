@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SalesReportServlet
+ * Servlet implementation class MostActiveFlightsServlet
  */
-@WebServlet("/SalesReportServlet")
-public class SalesReportServlet extends HttpServlet {
+//@WebServlet("/MostActiveFlightsServlet")
+public class MostActiveFlightsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SalesReportServlet() {
+    public MostActiveFlightsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,59 +36,40 @@ public class SalesReportServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		String month = request.getParameter("month");
-		
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
 	       
-			String sql = "SELECT R.ResrDate, R.ResrNo, R.BookingFee,  R.TotalFare, "
-					+ "C.Id, P.FirstName, P.LastName, C.Email "
-					+ "FROM Reservation R, Customer C, Person P "
-					+ "WHERE MONTH(R.ResrDate) = " + month + " "
-					+ "AND R.AccountNo = C.AccountNo "
-					+ "AND C.Id = P.Id;";
+			String sql = "SELECT I.AirlineId, I.FlightNo, COUNT(I.ResrNo) "
+					+ "AS total_reservations "
+					+ "FROM Includes I "
+					+ "GROUP BY I.AirlineId "
+					+ "ORDER BY total_reservations DESC;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 		
 	       // Execute SQL statement returns a ResultSet object.
 			ResultSet rs = statement.executeQuery(sql);
-			List<beans.SalesInfoBeans> list = new ArrayList<beans.SalesInfoBeans>();
+			List<beans.MostActiveFlightsBeans> list = new ArrayList<beans.MostActiveFlightsBeans>();
 			while (rs.next()) {
-				String resrDate = rs.getString(1);
-				String resrNo = rs.getString(2);
-				String bookingFee = rs.getString(3);
-				String totalFare = rs.getString(4);
-				String id = rs.getString(5);
-				String firstName = rs.getString(6);
-				String lastName = rs.getString(7);
-				String email = rs.getString(8);
+				String airlineId = rs.getString(1);
+				String flightNumber = rs.getString(2);
+				String totalResr = rs.getString("total_reservations");
 				
 				
 	    	   
-				beans.SalesInfoBeans info = new beans.SalesInfoBeans();
-				info.setResrDate(resrDate);
-				info.setResrNo(resrNo);
-				info.setBookingFee(bookingFee);
-				info.setTotalFare(totalFare);
-				info.setId(id);
-				info.setFirstName(firstName);
-				info.setLastName(lastName);
-				info.setEmail(email);
+				beans.MostActiveFlightsBeans info = new beans.MostActiveFlightsBeans();
+				info.setAirlineId(airlineId);
+				info.setFlightNumber(flightNumber);
+				info.setTotalResr(totalResr);
 				info.setList();
 				
 				list.add(info);
 	    	   
 			}
 			List<String> colNames = new ArrayList<String>();
-			colNames.add("Reservation Date");
-			colNames.add("Reservation Number");
-			colNames.add("Booking Fee");
-			colNames.add("Total Fare");
-			colNames.add("Customer Id");
-			colNames.add("First Name");
-			colNames.add("Last Name");
-			colNames.add("Email");
-			
+			colNames.add("Airline Id");
+			colNames.add("Flight Number");
+			colNames.add("Total Reservations");
 	       
 			request.setAttribute("colNames", colNames);
 			request.setAttribute("rowVal", list);
@@ -101,7 +82,7 @@ public class SalesReportServlet extends HttpServlet {
 	    } catch (SQLException | ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-	    }
+	    }		
 		
 		
 	}
