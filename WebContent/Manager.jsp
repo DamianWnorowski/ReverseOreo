@@ -8,6 +8,13 @@
 <jsp:include page="_head.jsp"></jsp:include>
 <jsp:include page="_nav.jsp"></jsp:include>
 
+<script>
+function editEmployee(){
+		document.getElementByID("employee-option").load("_head.jsp");
+});
+
+</script>
+
 <div class="container">
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -20,8 +27,8 @@
 <div class="panel-body tab-content">	
 	<div id="employee-option" class="tab-pane fade in active">
 		<ul>
-		   <li><a href="javascript:alert('time to add employee');">Add an Employee</a></li>
-		   <li><a href="EmployeeListServlet">Delete/Edit an Employee</a></li>
+		   <li><a id="addEmployee" href="javascript:alert('time to add employee');">Add an Employee</a></li>
+		   <li><a id="editEmployee" href="EmployeeListServlet" onClick="editEmployee">Delete/Edit an Employee</a></li>
 		 </ul>
 	</div>
 	
