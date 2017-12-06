@@ -12,7 +12,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<ul class="nav nav-pills">
-<<<<<<< HEAD
 		   <li class="active"><a data-toggle="tab" href="#employee-option">Employees</a></li>
 		   <li><a data-toggle="tab" href="#sales-option">Sales</a></li>
 		   <li><a data-toggle="tab" href="#flights-option">Flights</a></li>
@@ -22,12 +21,7 @@
 	<div id="employee-option" class="tab-pane fade in active">
 		<ul>
 		   <li><a href="javascript:alert('time to add employee');">Add an Employee</a></li>
-		   <li><a href="javascript:alert('time to edit employee');">Delete/Edit an Employee</a></li>
-=======
-		   <li class="active"><a href="#employee-option">Employees</a></li>
-		   <li><a href="EmployeeListServlet">Sales</a></li>
-		   <li><a href="#flights-option">Flights</a></li>
->>>>>>> refs/remotes/origin/signup
+		   <li><a href="EmployeeListServlet">Delete/Edit an Employee</a></li>
 		 </ul>
 	</div>
 	
