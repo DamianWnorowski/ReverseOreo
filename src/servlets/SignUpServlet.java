@@ -88,7 +88,7 @@ public class SignUpServlet extends HttpServlet {
 		try {
 	    	   Connection conn = MySQLConnUtils.getMySQLConnection();
 		       System.out.println("Get connection " + conn);
-		       String sql = "SELECT Id FROM Person WHERE Id='" + username + "';";
+		       String sql = "SELECT Username FROM UserAccounts WHERE Username='" + username + "';";
 		       PreparedStatement statement = conn.prepareStatement(sql);
 			
 		       // Execute SQL statement returns a ResultSet object.
@@ -96,8 +96,11 @@ public class SignUpServlet extends HttpServlet {
 		       if(rs.next()){
 		    	   //Username exists
 		    	   System.out.println("Username Taken");
+		    	   /* TODO: Reload the signup form for the user
+		    	    * Optional: Repopulate form fields
+		    	    */
 		       }else{
-		    	   sql = "SELECT COUNT(*) AS total FROM Customer";
+		    	   sql = "SELECT COUNT(*) AS total FROM UserAccounts";
 		    	   statement = conn.prepareStatement(sql);
 		    	   rs = statement.executeQuery(sql);
 		    	   
