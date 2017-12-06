@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
-@WebServlet(urlPatterns = { "/flightlist" })
+//@WebServlet(urlPatterns = { "/flightlist" })
 public class AllFlights extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -55,7 +55,7 @@ public class AllFlights extends HttpServlet {
 	       
 	       request.setAttribute("colNames", colNames);
 	       request.setAttribute("rowVal", list);
-	       request.getRequestDispatcher("/flightlist.jsp").forward(request, response);
+	       request.getRequestDispatcher("HomePage.jsp").forward(request, response);
 //	       RequestDispatcher dispatcher = request.getServletContext().
 //	    		   getRequestDispatcher("/flights.jsp");
 //	       dispatcher.forward(request, response);
