@@ -51,7 +51,7 @@ public class UserLogInServlet extends HttpServlet {
 			md.update(username.getBytes("UTF-8"));
 			byte[] bytes = md.digest(plaintextPw.getBytes("UTF-8"));
 			StringBuilder sb = new StringBuilder();
-			for(int i=0; i< bytes.length ;i++){
+			for(int i = 0; i < bytes.length; i++){
 				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 			}
 
@@ -69,7 +69,7 @@ public class UserLogInServlet extends HttpServlet {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
-			String sql = "SELECT Username FROM UserAccounts WHERE Username='" + username + "' AND Password='"+ password + "';";
+			String sql = "SELECT Id FROM Customer WHERE Id='" + username + "' AND Password='"+ password + "';";
 			PreparedStatement statement = conn.prepareStatement(sql);
 
 
