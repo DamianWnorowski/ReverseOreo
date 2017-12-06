@@ -90,7 +90,9 @@ public class EmployeeListServlet extends HttpServlet {
 		       request.setAttribute("rowVal", list);
 		       
 		       //IMPORTANT CHANGE FORWARD ADDRESS
+
 		       request.getRequestDispatcher("/Manager/Results.jsp").forward(request, response);
+
 //		       RequestDispatcher dispatcher = request.getServletContext().
 //		    		   getRequestDispatcher("/flights.jsp");
 //		       dispatcher.forward(request, response);
