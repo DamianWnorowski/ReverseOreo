@@ -33,28 +33,63 @@ public class EmployeeListServlet extends HttpServlet {
 		try {
 	    	   Connection conn = MySQLConnUtils.getMySQLConnection();
 		       System.out.println("Get connection " + conn);
-		       String sql = "SELECT * FROM Flight;";
+		       
+		       String sql = "SELECT P.FirstName, P.LastName, P.Address, P.City, P.State, P.ZipCode, P.Id, "
+		       		+ "E.SSN, E.HourlyRate,  E.IsManager, E.StartDate "
+		       		+ "FROM Person P, Employee E WHERE P.Id = E.Id;";
 		       PreparedStatement statement = conn.prepareStatement(sql);
 			
 		       // Execute SQL statement returns a ResultSet object.
 		       ResultSet rs = statement.executeQuery(sql);
-		       List<beans.flight> list = new ArrayList<beans.flight>();
+		       List<beans.EmployeeInfo> list = new ArrayList<beans.EmployeeInfo>();
 		       while (rs.next()) {
-		    	   String airplaneId = rs.getString(1);
-		    	   String airplaneName = rs.getString(2);
-		    	   beans.flight f = new beans.flight();
-		    	   f.setAirplaneId(airplaneId);
-		    	   f.setAirplaneName(airplaneName);
-		    	   f.setList();
-		    	   list.add(f);
+		    	   String firstName = rs.getString(1);
+		    	   String lastName = rs.getString(2);
+		    	   String address = rs.getString(3);
+		    	   String city = rs.getString(4);
+		    	   String state = rs.getString(5);
+		    	   String zipcode = rs.getString(6);
+		    	   String id = rs.getString(7);
+		    	   String ssn = rs.getString(8);
+		    	   String rate = rs.getString(9);
+		    	   String isManager = rs.getString(10);
+		    	   String startDate = rs.getString(11);
+		    	   
+		    	   beans.EmployeeInfo info = new beans.EmployeeInfo();
+		    	   info.setFirstName(firstName);
+		    	   info.setLastName(lastName);
+		    	   info.setAddress(address);
+		    	   info.setCity(city);
+		    	   info.setState(state);
+		    	   info.setZipcode(zipcode);
+		    	   info.setId(id);
+		    	   info.setSsn(ssn);
+		    	   info.setRate(rate);
+		    	   info.setIsManager(isManager);
+		    	   info.setStartDate(startDate);
+		    	   info.setList();
+		    	   list.add(info);
 		    	   
 		       }
 		       List<String> colNames = new ArrayList<String>();
-		       colNames.add("Airplane Name");
-		       colNames.add("Airplane ID");
+		       colNames.add("First Name");
+		       colNames.add("Last Name");
+		       colNames.add("Address");
+		       colNames.add("City");
+		       colNames.add("State");
+		       colNames.add("Zipcode");
+		       colNames.add("Id");
+		       colNames.add("SSN");
+		       colNames.add("Hourly Rate");
+		       colNames.add("Is Manager");
+		       colNames.add("Start Date");
+		       
+		       
 		       
 		       request.setAttribute("colNames", colNames);
 		       request.setAttribute("rowVal", list);
+		       
+		       //IMPORTANT CHANGE FORWARD ADDRESS
 		       request.getRequestDispatcher("/flightlist.jsp").forward(request, response);
 //		       RequestDispatcher dispatcher = request.getServletContext().
 //		    		   getRequestDispatcher("/flights.jsp");

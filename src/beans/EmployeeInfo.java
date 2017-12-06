@@ -7,7 +7,8 @@ import java.util.List;
 public class EmployeeInfo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private String firstName, lastName, address, city, state, zipcode, id, ssn, rate, isManager, startDate;
+	private String firstName, lastName, address, city, state, zipcode;
+	private String id, ssn, rate, isManager, startDate;
 	private List<Object> list = new ArrayList<Object>();
 	
 	public EmployeeInfo(){
