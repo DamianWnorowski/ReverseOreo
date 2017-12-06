@@ -10,12 +10,92 @@
     <url-pattern>/SignUpServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>listbyflight</servlet-name>
+    <servlet-class>servlets.ListByFlightServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>listbyflight</servlet-name>
+    <url-pattern>/Manager/ListByFlightServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>listbyname</servlet-name>
+    <servlet-class>servlets.ListResrByNameServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>listbyname</servlet-name>
+    <url-pattern>/Manager/ListResrByNameServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>managerallflights</servlet-name>
+    <servlet-class>servlets.ListAllFlightsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>managerallflights</servlet-name>
+    <url-pattern>/Manager/ListAllFlightsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>manageractiveflights</servlet-name>
+    <servlet-class>servlets.MostActiveFlightsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>manageractiveflights</servlet-name>
+    <url-pattern>/Manager/MostActiveFlightsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>managerflightsatairport</servlet-name>
+    <servlet-class>servlets.FlightsAtAirportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>managerflightsatairport</servlet-name>
+    <url-pattern>/Manager/FlightsAtAirportServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>managersalesreport</servlet-name>
+    <servlet-class>servlets.SalesReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>managersalesreport</servlet-name>
+    <url-pattern>/Manager/SalesReportServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>airlineruntimeschedule</servlet-name>
+    <servlet-class>servlets.AirlineRunTimeScheduleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>airlineruntimeschedule</servlet-name>
+    <url-pattern>/Manager/AirlineRunTimeScheduleServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>login</servlet-name>
     <servlet-class>servlets.UserLogInServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>login</servlet-name>
     <url-pattern>/UserLogInServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>customerrevenue</servlet-name>
+    <servlet-class>servlets.CustomerRevenueServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>customerrevenue</servlet-name>
+    <url-pattern>/Manager/CustomerRevenueServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>revenuesummary</servlet-name>
+    <servlet-class>servlets.RevenueSummaryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>revenuesummary</servlet-name>
+    <url-pattern>/Manager/RevenueSummaryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>employeerevenue</servlet-name>
+    <servlet-class>servlets.EmployeeRevenueServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>employeerevenue</servlet-name>
+    <url-pattern>/Manager/EmployeeRevenueServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>AllFlights</servlet-name>

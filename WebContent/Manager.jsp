@@ -36,7 +36,7 @@ $(document).ready(function(){
 	<div class="panel-heading">
 		<ul class="nav nav-pills">
 		   <li class="active"><a href="#employee-option">Employees</a></li>
-		   <li><a href="EmployeeListServlet">Sales</a></li>
+		   <li><a href="#sales-option">Sales</a></li>
 		   <li><a href="#flights-option">Flights</a></li>
 		 </ul>
 	</div>

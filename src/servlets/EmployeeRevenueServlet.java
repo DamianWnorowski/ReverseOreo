@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ReservationListServlet
+ * Servlet implementation class EmployeeRevenueServlet
  */
-@WebServlet("/ListByResrNoServlet")
-public class ListByResrNoServlet extends HttpServlet {
+//@WebServlet("/EmployeeRevenueServlet")
+public class EmployeeRevenueServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListByResrNoServlet() {
+    public EmployeeRevenueServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,74 +36,61 @@ public class ListByResrNoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		String reservationNumber = request.getParameter("reservationNumber");
-		
-		
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
 	       
-			String sql = "SELECT R.ResrDate, R.ResrNo, R.BookingFee,  R.TotalFare, "
-					+ "C.Id, P.FirstName, P.LastName, C.Email "
-					+ "FROM Reservation R, Customer C, Person P "
-					+ "WHERE R.ResrNo "
-					+ "IN (SELECT I.ResrNo FROM Includes I WHERE I.FlightNo = " + reservationNumber + ") "
-					+ "AND R.AccountNo = C.AccountNo "
-					+ "And P.Id = C.Id;";
+			String sql = "SELECT P.FirstName, P.LastName, P.Id, SUM(R.BookingFee) "
+					+ "AS TotalRevenue "
+					+ "FROM Person P, Employee E, Reservation R "
+					+ "WHERE P.Id = E.Id "
+					+ "AND E.SSN = R.RepSSN "
+					+ "GROUP BY P.Id "
+					+ "ORDER BY TotalRevenue "
+					+ "DESC LIMIT 1;";
+			
 			PreparedStatement statement = conn.prepareStatement(sql);
 		
 	       // Execute SQL statement returns a ResultSet object.
 			ResultSet rs = statement.executeQuery(sql);
-			List<beans.SalesInfoBeans> list = new ArrayList<beans.SalesInfoBeans>();
+			List<beans.CustomerRevenueBeans> list = new ArrayList<beans.CustomerRevenueBeans>();
 			while (rs.next()) {
-				String resrDate = rs.getString(1);
-				String resrNo = rs.getString(2);
-				String bookingFee = rs.getString(3);
-				String totalFare = rs.getString(4);
-				String id = rs.getString(5);
-				String firstName = rs.getString(6);
-				String lastName = rs.getString(7);
-				String email = rs.getString(8);
+				String firstName = rs.getString(1);
+				String lastName = rs.getString(2);
+				String id = rs.getString(3);
+				String totalRevenue = rs.getString(4);
 				
 				
 	    	   
-				beans.SalesInfoBeans info = new beans.SalesInfoBeans();
-				info.setResrDate(resrDate);
-				info.setResrNo(resrNo);
-				info.setBookingFee(bookingFee);
-				info.setTotalFare(totalFare);
-				info.setId(id);
+				beans.CustomerRevenueBeans info = new beans.CustomerRevenueBeans();
 				info.setFirstName(firstName);
 				info.setLastName(lastName);
-				info.setEmail(email);
+				info.setId(id);
+				info.setTotalRevenue(totalRevenue);
 				info.setList();
 				
 				list.add(info);
 	    	   
 			}
 			List<String> colNames = new ArrayList<String>();
-			colNames.add("Reservation Date");
-			colNames.add("Reservation Number");
-			colNames.add("Booking Fee");
-			colNames.add("Total Fare");
-			colNames.add("Customer Id");
 			colNames.add("First Name");
 			colNames.add("Last Name");
-			colNames.add("Email");
-			
+			colNames.add("Id");
+			colNames.add("Total Revenue");
 	       
 			request.setAttribute("colNames", colNames);
 			request.setAttribute("rowVal", list);
 	       
 			//IMPORTANT CHANGE FORWARD ADDRESS
-			request.getRequestDispatcher("/flightlist.jsp").forward(request, response);
+			request.getRequestDispatcher("/Manager/Results.jsp").forward(request, response);
 //		       RequestDispatcher dispatcher = request.getServletContext().
 //		    		   getRequestDispatcher("/flights.jsp");
 //		       dispatcher.forward(request, response);
 	    } catch (SQLException | ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-	    }
+	    }		
+		
 		
 	}
 

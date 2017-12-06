@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SalesReportServlet
+ * Servlet implementation class RevenueSummaryServlet
  */
-@WebServlet("/SalesReportServlet")
-public class SalesReportServlet extends HttpServlet {
+//@WebServlet("/RevenueSummaryServlet")
+public class RevenueSummaryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SalesReportServlet() {
+    public RevenueSummaryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,59 +36,62 @@ public class SalesReportServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		String month = request.getParameter("month");
-		
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
+			
+			String summaryBy = request.getParameter("searchBy");
+			String searchValue = request.getParameter("searchValue");
 	       
-			String sql = "SELECT R.ResrDate, R.ResrNo, R.BookingFee,  R.TotalFare, "
-					+ "C.Id, P.FirstName, P.LastName, C.Email "
-					+ "FROM Reservation R, Customer C, Person P "
-					+ "WHERE MONTH(R.ResrDate) = " + month + " "
-					+ "AND R.AccountNo = C.AccountNo "
-					+ "AND C.Id = P.Id;";
+			String sql = "";
+			
+			if(summaryBy.equals("flight")){
+				sql = "SELECT R.BookingFee "
+						+ "FROM Reservation R "
+						+ "WHERE R.ResrNo "
+						+ "IN (SELECT I.ResrNo "
+						+ "FROM Includes I "
+						+ "WHERE I.FlightNo = " + searchValue + ");";
+			}else if(summaryBy.equals("city")){
+				sql = "SELECT R.BookingFee "
+						+ "FROM Reservation R "
+						+ "WHERE R.ResrNo "
+						+ "IN (SELECT I.ResrNo "
+						+ "FROM Includes I "
+						+ "WHERE I.LegNo "
+						+ "IN (SELECT L.LegNo "
+						+ "FROM Leg L "
+						+ "WHERE L.ArrAirportId "
+						+ "IN (SELECT A.Id "
+						+ "FROM Airport A "
+						+ "WHERE A.City = '" + searchValue +"') ));";
+			}else if(summaryBy.equals("customer")){
+				sql = "SELECT R.BookingFee FROM Reservation R WHERE R.AccountNo = " + searchValue + ";";
+			}
+			
 			PreparedStatement statement = conn.prepareStatement(sql);
 		
 	       // Execute SQL statement returns a ResultSet object.
 			ResultSet rs = statement.executeQuery(sql);
-			List<beans.SalesInfoBeans> list = new ArrayList<beans.SalesInfoBeans>();
+			List<beans.RevenueSummaryBeans> list = new ArrayList<beans.RevenueSummaryBeans>();
 			while (rs.next()) {
-				String resrDate = rs.getString(1);
-				String resrNo = rs.getString(2);
-				String bookingFee = rs.getString(3);
-				String totalFare = rs.getString(4);
-				String id = rs.getString(5);
-				String firstName = rs.getString(6);
-				String lastName = rs.getString(7);
-				String email = rs.getString(8);
+				String bookingFee = rs.getString(1);
+
 				
 				
 	    	   
-				beans.SalesInfoBeans info = new beans.SalesInfoBeans();
-				info.setResrDate(resrDate);
-				info.setResrNo(resrNo);
+				beans.RevenueSummaryBeans info = new beans.RevenueSummaryBeans();
+				info.setSummaryBy(searchValue);
 				info.setBookingFee(bookingFee);
-				info.setTotalFare(totalFare);
-				info.setId(id);
-				info.setFirstName(firstName);
-				info.setLastName(lastName);
-				info.setEmail(email);
 				info.setList();
 				
 				list.add(info);
 	    	   
 			}
 			List<String> colNames = new ArrayList<String>();
-			colNames.add("Reservation Date");
-			colNames.add("Reservation Number");
+			colNames.add("Summary By");
 			colNames.add("Booking Fee");
-			colNames.add("Total Fare");
-			colNames.add("Customer Id");
-			colNames.add("First Name");
-			colNames.add("Last Name");
-			colNames.add("Email");
-			
+
 	       
 			request.setAttribute("colNames", colNames);
 			request.setAttribute("rowVal", list);
@@ -101,7 +104,8 @@ public class SalesReportServlet extends HttpServlet {
 	    } catch (SQLException | ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-	    }
+	    }		
+		
 		
 		
 	}
