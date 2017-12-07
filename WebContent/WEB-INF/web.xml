@@ -98,6 +98,14 @@
     <url-pattern>/Manager/AirlineRunTimeScheduleServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+  	<servlet-name>employeeLogin</servlet-name>
+  	<servlet-class>servlets.EmployeeLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>employeeLogin</servlet-name>
+    <url-pattern>/EmployeeLoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>login</servlet-name>
     <servlet-class>servlets.UserLogInServlet</servlet-class>
   </servlet>
