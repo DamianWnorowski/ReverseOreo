@@ -30,10 +30,6 @@ import java.security.NoSuchAlgorithmException;
 public class UserLogInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	/* For tracking expiration for users */
-	private static final int EXPIRE_IN_MINUTES = 1;
-
-
 	public UserLogInServlet(){
 		super();
 	}
@@ -85,10 +81,9 @@ public class UserLogInServlet extends HttpServlet {
 				/* For login */
 				HttpSession session = request.getSession();
 				session.setAttribute("user", username);
+				
 				/* For logout expiration */
-				Cookie userCookie = new Cookie("user", username);
-				userCookie.setMaxAge(EXPIRE_IN_MINUTES*60);
-				response.addCookie(userCookie);
+				// now I use only session timeout for login expiration 
 				
 				response.sendRedirect("HomePage.jsp");
 			}else{
