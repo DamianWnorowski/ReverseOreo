@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<%@ page import="filters.User" %>
+
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -13,13 +16,29 @@
         <ul class="nav navbar-nav navbar-right">
         	<%
         	if(session !=null){
-        		String user = (String) session.getAttribute("user");
-        		if(user != null){ 
-        			%>
-        			<li><span class="navbar-text"><font color="white"><%=user%></font></span></li> 
-        			<li><a href="/ReverseOreo/Customer/Settings.jsp"><span class="glyphicon glyphicon-cog"></span>Settings</a></li> 
-        			<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
-        			<%	
+        		User user = (User) session.getAttribute("user");
+        		if(user != null){
+        			if(user.getRole().equals("Customer")){
+        				%>
+            			<li><span class="navbar-text"><font color="white"><%=user.getUsername()%></font></span></li> 
+            			<li><a href="/ReverseOreo/Customer/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Profile</a></li>
+            			<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
+            			<%
+        			} else if(user.getRole().equals("Employee")){
+        				%>
+            			<li><span class="navbar-text"><font color="white"><%=user.getUsername()%></font></span></li> 
+            			<li><a href="/ReverseOreo/Employee/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Employee Panel</a></li>
+            			<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
+            			<%
+        			} else if(user.getRole().equals("Manager")){
+        				%>
+            			<li><span class="navbar-text"><font color="white"><%=user.getUsername()%></font></span></li> 
+            			<li><a href="/ReverseOreo/Employee/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Employee Panel</a></li>
+            			<li><a href="/ReverseOreo/Manager/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Manager Panel</a></li>
+            			<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
+            			<%
+        			}
+        			
         		} else {
         			%>
         			<li><a href="/ReverseOreo/signup.jsp"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>

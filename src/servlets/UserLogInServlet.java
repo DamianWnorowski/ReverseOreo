@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import filters.User;
+
 /* For hashing */
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -43,6 +45,14 @@ public class UserLogInServlet extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String plaintextPw = request.getParameter("userpassword");
+		
+		/* If pw field was left empty */
+		if(plaintextPw.equals("")){
+			out.print("<p style=\"color:red\">Pw left blank</p>");
+			System.out.println("Empty password provided");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			return;
+		}
 
 		String password = "";
 
@@ -70,17 +80,24 @@ public class UserLogInServlet extends HttpServlet {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
-			String sql = "SELECT Username FROM UserAccounts WHERE Username='" + username + "';";
+			String sql = "SELECT Username "
+					+ "FROM UserAccounts U, Customer C "
+					+ "WHERE U.Username='" + username + "' "
+					+ "AND U.password='" + password + "' "
+					+ "AND C.Id='" + username + "';";
+			
 			PreparedStatement statement = conn.prepareStatement(sql);
-
-
+			
 			ResultSet rs = statement.executeQuery(sql);
 			if(rs.next()){
 				//Username exists
 				System.out.println("Logged in");
 				/* For login */
 				HttpSession session = request.getSession();
-				session.setAttribute("user", username);
+				User user = new User();
+				user.setUsername(username);
+				user.setRole("Customer");
+				session.setAttribute("user", user);
 				
 				/* For logout expiration */
 				// now I use only session timeout for login expiration 

@@ -45,7 +45,7 @@ pageEncoding="ISO-8859-1"%>
 	    <h3>Employee</h3>
 	</div>
 	<div class="panel-body">
-	    <form action="" id="loginForm">
+	    <form action="EmployeeLoginServlet" method="post" id="loginForm">
 	        <div class="form-group input-group">
 	            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 	            <input class="form-control" type="text" name='username' placeholder="username"/>          
@@ -56,7 +56,7 @@ pageEncoding="ISO-8859-1"%>
 	        </div>
 	    
 	        <div class="form-group">
-	            <button type="button" class="btn btn-def btn-block">Login</button>
+	            <button type="submit" class="btn btn-def btn-block">Login</button>
 	        </div>
 	    </form>        
 	</div>

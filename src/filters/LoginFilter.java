@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.UserAccount;
+
 
 @WebFilter("/LoginFilter")
 public class LoginFilter implements Filter{
@@ -36,7 +38,7 @@ public class LoginFilter implements Filter{
 			RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
 			rd.include(req, res);
 			return;
-		} else if(uri.endsWith("UserLogInServlet") || uri.endsWith("SignUpServlet") || uri.endsWith("signup.jsp")) {
+		} else if(uri.endsWith("UserLogInServlet") || uri.endsWith("EmployeeLoginServlet") || uri.endsWith("SignUpServlet") || uri.endsWith("signup.jsp")) {
 			System.out.println("No Access permissions required");
 			chain.doFilter(request, response);
 			return;
@@ -44,9 +46,9 @@ public class LoginFilter implements Filter{
 		
 
 		if(session != null) {
-			String user = (String) session.getAttribute("user");
+			User user = (User) session.getAttribute("user");
 			if(user != null) {
-				System.out.println("Stored user in session is: " + user);						
+				System.out.println("Stored user in session is: " + user.getUsername());						
 				System.out.println("Access granted");
 				chain.doFilter(request, response);
 				return;
