@@ -50,6 +50,22 @@
     <url-pattern>/Manager/FlightsAtAirportServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>employeeadded</servlet-name>
+    <servlet-class>servlets.AddNewEmployeeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>employeeadded</servlet-name>
+    <url-pattern>/Manager/AddNewEmployeeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>employeelist</servlet-name>
+    <servlet-class>servlets.EmployeeListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>employeelist</servlet-name>
+    <url-pattern>/Manager/EmployeeListServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>managersalesreport</servlet-name>
     <servlet-class>servlets.SalesReportServlet</servlet-class>
   </servlet>

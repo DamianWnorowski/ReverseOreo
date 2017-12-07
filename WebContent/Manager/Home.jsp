@@ -9,12 +9,13 @@
 
 <div class="container">
 	<div class="panel panel-default">
-		<div class="panel-heading">
+		<div class="panel-heading"> 
 			<ul class="nav nav-pills">
 			
 				<li class="active"><a data-toggle="pill" href="#flight-option">Flights</a></li>
 			   	<li><a data-toggle="pill" href="#sales-option">Sales</a></li>
 			   	<li><a data-toggle="pill" href="#resr-option">Reservations</a></li>
+			   	<li><a data-toggle="pill" href="#employee-option">Employees</a></li>
 <!-- 			   <li class="active"><a href="#employee-option">Employees</a></li> -->
 <!-- 			   <li><a href="#sales-option">Sales</a></li> -->
 <!-- 			   <li><a href="/ReverseOreo/flightlist">Flights</a></li> -->
@@ -31,6 +32,9 @@
 		
 			<div id="resr-option" class="tab-pane fade">
 				<jsp:include page="ReservationList.jsp"></jsp:include>
+			</div>
+			<div id="employee-option" class="tab-pane fade">
+				<jsp:include page="AddNewEmployee.jsp"></jsp:include>
 			</div>
 		</div>			
 	</div>
