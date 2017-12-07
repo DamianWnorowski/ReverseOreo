@@ -15,7 +15,6 @@
 		} else {
 			var url = "ValidateUsername.jsp?user=" + u;
 			var xhttp = new XMLHttpRequest();
-			mywindow = window;
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					//alert(this.responseText.replace(/\s/g,''));

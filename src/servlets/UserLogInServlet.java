@@ -61,7 +61,7 @@ public class UserLogInServlet extends HttpServlet {
 			System.out.println("No such algorithm.");
 			e1.printStackTrace();
 		}
-		
+
 		password = password.substring(0, 20);
 		System.out.println("The password after hashing and truncating is " + password);
 
@@ -77,12 +77,19 @@ public class UserLogInServlet extends HttpServlet {
 			if(rs.next()){
 				//Username exists
 				System.out.println("Username Logged in");
+//				RequestDispatcher rd = request.getRequestDispatcher("HomePage.jsp");  
+//				rd.include(request,response); 
+				response.sendRedirect("HomePage.jsp");
 			}else{
 				out.print("<p style=\"color:red\">Invalid Username or Password</p>");
 				System.out.println("invalid password");
-				RequestDispatcher rd =request.getRequestDispatcher("login.jsp");  
-				rd.include(request,response);  
-			}	   
+//				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");  
+//				rd.include(request,response);  
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+			}
+			rs.close();
+			statement.close();
+			conn.close();
 
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
