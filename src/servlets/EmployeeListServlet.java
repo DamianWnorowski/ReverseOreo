@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import servlets.MySQLConnUtils;
+
 /**
  * Servlet implementation class EmployeeListServlet
  */
@@ -90,6 +92,7 @@ public class EmployeeListServlet extends HttpServlet {
 		       request.setAttribute("rowVal", list);
 		       
 		       //IMPORTANT CHANGE FORWARD ADDRESS
+		       
 		       request.getRequestDispatcher("/Manager.jsp").forward(request, response);
 //		       RequestDispatcher dispatcher = request.getServletContext().
 //		    		   getRequestDispatcher("/flights.jsp");
