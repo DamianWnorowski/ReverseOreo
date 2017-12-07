@@ -4,8 +4,8 @@
 
 
 <html>
-<jsp:include page="_head.jsp"></jsp:include>
-<jsp:include page="_nav.jsp"></jsp:include>
+<jsp:include page="../_head.jsp"></jsp:include>
+<jsp:include page="../_nav.jsp"></jsp:include>
 
 <div class="container">
 	<div class="panel panel-default">

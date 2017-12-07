@@ -11,8 +11,26 @@
         <li><a href="#">Help</a></li> -->
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/ReverseOreo/signup.jsp"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
-            <li><a href="/ReverseOreo/login.jsp"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+        	<%
+        	if(session !=null){
+        		String user = (String) session.getAttribute("user");
+        		if(user != null){ 
+        			%>
+        			<li><font size="5" color="white">Welcome, <%=user%>.</font></li> 
+        			<li><a href="/ReverseOreo/Customer/Settings.jsp"><span class="glyphicon glyphicon-cog"></span>Settings</a></li> 
+        			<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
+        			<%	
+        		} else {
+        			%>
+        			<li><a href="/ReverseOreo/signup.jsp"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+        			<%
+        		}
+        	}
+        	%>
+        	
+            
+            <!-- <li><a href="/ReverseOreo/login.jsp"><span class="glyphicon glyphicon-log-in"></span>Login</a></li> -->
+            
         </ul>
     </div>
 </nav>
