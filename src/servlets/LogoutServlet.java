@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import filters.User;
+
 /* For hashing */
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -41,7 +43,7 @@ public class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-    	System.out.println("User " + session.getAttribute("user") + " logged out.");
+    	System.out.println("User " + ((User)session.getAttribute("user")).getRole() + " logged out.");
     	if(session != null){
     		session.invalidate();
     	}
