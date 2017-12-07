@@ -17,9 +17,9 @@ try{
 	
 	String AccNo="";
 	String sql="";
-	filters.User user = new User();
-	user = (User)session.getAttribute("user");
-	String username = user.getUsername();
+
+	String user = ((filters.User)session.getAttribute("user")).getUsername();
+
 	String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = '" + user + "';";
 	PreparedStatement state= conn.prepareStatement(sqlGetAccNo);
 	ResultSet rsAccNo = state.executeQuery(sqlGetAccNo);

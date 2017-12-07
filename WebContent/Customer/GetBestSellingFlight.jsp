@@ -17,10 +17,12 @@ try{
 	
 	String AccNo="";
 	String sql="";
+
 	filters.User user = new User();
 	user = (User)session.getAttribute("user");
 	String username = user.getUsername();
 	String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = '" + username + "';";
+
 	PreparedStatement state= conn.prepareStatement(sqlGetAccNo);
 	ResultSet rsAccNo = state.executeQuery(sqlGetAccNo);
 	while(rsAccNo.next()){

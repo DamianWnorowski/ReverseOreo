@@ -21,20 +21,22 @@
         			if(user.getRole().equals("Customer")){
         				%>
             			<li><span class="navbar-text"><font color="white"><%=user.getUsername()%></font></span></li> 
-            			<li><a href="/ReverseOreo/Customer/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Profile</a></li>
+            			<li><a href="/ReverseOreo/Customer/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Dashboard</a></li>
+            			<li><a href="/ReverseOreo/Customer/Settings.jsp"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
+            			<li><a href="/ReverseOreo/Help.jsp"><span class="glyphicon glyphicon-flag"></span>Help</a></li>
             			<li><a href="/ReverseOreo/LogoutServlet"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
             			<%
         			} else if(user.getRole().equals("Employee")){
         				%>
             			<li><span class="navbar-text"><font color="white"><%=user.getUsername()%></font></span></li> 
-            			<li><a href="/ReverseOreo/Employee/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Employee Panel</a></li>
+            			<li><a href="/ReverseOreo/Employee/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Dashboard</a></li>
             			<li><a href="/ReverseOreo/LogoutServlet"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
             			<%
         			} else if(user.getRole().equals("Manager")){
         				%>
             			<li><span class="navbar-text"><font color="white"><%=user.getUsername()%></font></span></li> 
-            			<li><a href="/ReverseOreo/Employee/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Employee Panel</a></li>
-            			<li><a href="/ReverseOreo/Manager/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Manager Panel</a></li>
+            			<li><a href="/ReverseOreo/Employee/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Dashboard</a></li>
+            			<li><a href="/ReverseOreo/Manager/Home.jsp"><span class="glyphicon glyphicon-cog"></span>Manager Dashboard</a></li>
             			<li><a href="/ReverseOreo/LogoutServlet"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
             			<%
         			}
