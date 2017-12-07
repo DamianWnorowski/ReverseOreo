@@ -46,31 +46,23 @@ public class LoginFilter implements Filter{
 		}
 		
 		
-		/* checking cookies for expiration */
-		Cookie[] cookies = req.getCookies();
+
 		if(session != null) {
 			String user = (String) session.getAttribute("user");
 			if(user != null) {
-				System.out.println("Stored user in session is: " + user);
-				if (cookies != null) {
-					for(Cookie c : cookies) {
-						System.out.println("Comparing user: " + user + " with cookie: " + c.getValue()); 
-						if(c.getValue().equals(user)) {
-							System.out.println("Access granted");
-							chain.doFilter(request, response);
-							return;
-						}
-					}
-					
-				}
+				System.out.println("Stored user in session is: " + user);						
+				System.out.println("Access granted");
+				chain.doFilter(request, response);
+				return;
+			} else {
+				System.out.println("Unauthorized access request");
+				RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
+				rd.include(req, res);
+				return;
 			}
 		}
 		
-		/* Default case if above fails */
-		System.out.println("Unauthorized access request");
-		RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
-		rd.include(req, res);
-		return;
+		
 	}
 
 	@Override

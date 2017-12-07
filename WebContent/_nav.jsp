@@ -4,7 +4,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/ReverseOreo">Reverse Oreo</a>
+            <a class="navbar-brand" href="/ReverseOreo/HomePage.jsp">Reverse Oreo</a>
         </div>
         <ul class="nav navbar-nav">
         <!-- <li class="active"><a href="#">Home</a></li>
