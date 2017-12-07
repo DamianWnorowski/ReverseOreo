@@ -100,12 +100,12 @@ public class SignUpServlet extends HttpServlet {
 				 * Optional: Repopulate form fields
 				 */
 			}else{
-				sql = "SELECT COUNT(*) AS total FROM UserAccounts";
+				sql = "SELECT MAX(AccountNo) FROM Customer;";
 				statement = conn.prepareStatement(sql);
 				rs = statement.executeQuery(sql);
 
 				rs.next();
-				accountnumber = rs.getInt("total");
+				accountnumber = rs.getInt(1);
 				System.out.println("Accounts: " + accountnumber);
 				accountnumber++;
 				System.out.println("Accounts: " + accountnumber);
