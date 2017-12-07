@@ -16,7 +16,7 @@
         		String user = (String) session.getAttribute("user");
         		if(user != null){ 
         			%>
-        			<li><font size="5" color="white">Welcome, <%=user%>.</font></li> 
+        			<li><span class="navbar-text"><font color="white"><%=user%></font></span></li> 
         			<li><a href="/ReverseOreo/Customer/Settings.jsp"><span class="glyphicon glyphicon-cog"></span>Settings</a></li> 
         			<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
         			<%	
