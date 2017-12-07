@@ -10,6 +10,14 @@
     <url-pattern>/SignUpServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>flightsearch</servlet-name>
+    <servlet-class>servlets.FlightSearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>flightsearch</servlet-name>
+    <url-pattern>/FlightSearchServlet </url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>listbyflight</servlet-name>
     <servlet-class>servlets.ListByFlightServlet</servlet-class>
   </servlet>
@@ -164,5 +172,6 @@
     <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
   <session-config>
-  	<session-timeout>10</session-timeout></session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
 </web-app>
