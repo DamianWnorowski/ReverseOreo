@@ -32,7 +32,7 @@
 						Flights</a></li>
 				<li><a id="allflightsbtn" data-toggle="pill" data-target="#flight-list" onclick="getAllFlights()">All
 						Flights</a></li>
-				<li><a data-toggle="pill" data-target="#auctions">Auctions</a></li>
+<!-- 				<li><a data-toggle="pill" data-target="#auctions">Auctions</a></li> -->
 			</ul>
 		</div>
 
@@ -59,7 +59,7 @@
 				        	<label for="flightNumber">Trip:</label>
 				        </div>
 				        <div class="col-sm-12">
-					    <select name="month"> 
+					    <select name="trip"> 
 							<option value="oneway">One way</option>
 							<option value="round">Round Trip</option>						
 						</select>
