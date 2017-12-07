@@ -7,13 +7,18 @@
 <html>
 <jsp:include page="_head.jsp"></jsp:include>
 <jsp:include page="_nav.jsp"></jsp:include>
+<jsp:include page="_table.jsp"></jsp:include>
 
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
 <script>
 function editEmployee(){
-		document.getElementByID("employee-option").load("_head.jsp");
+	alert("THis is mad annoying");
 });
 
+
 </script>
+</head>
 
 <div class="container">
 <div class="panel panel-default">
@@ -28,7 +33,7 @@ function editEmployee(){
 	<div id="employee-option" class="tab-pane fade in active">
 		<ul>
 		   <li><a id="addEmployee" href="javascript:alert('time to add employee');">Add an Employee</a></li>
-		   <li><a id="editEmployee" href="EmployeeListServlet" onClick="editEmployee">Delete/Edit an Employee</a></li>
+		   <li><a id="editEmployee" href="EmployeeListServlet" onClick="editEmployee();">Delete/Edit an Employee</a></li>
 		 </ul>
 	</div>
 	
