@@ -28,14 +28,14 @@ import java.security.NoSuchAlgorithmException;
 @WebServlet("/SignUp")
 public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SignUpServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SignUpServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 
 	/**
@@ -45,7 +45,7 @@ public class SignUpServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
+
 		String firstname = request.getParameter("fname");
 		String lastname = request.getParameter("lname");
 		String email = request.getParameter("email");
@@ -55,11 +55,11 @@ public class SignUpServlet extends HttpServlet {
 		String state = request.getParameter("state");
 		String zipcode = request.getParameter("zipcode");
 		int accountnumber = 0;
-		
+
 		long millis=System.currentTimeMillis();  
-        Date date=new Date(millis);  
-        System.out.println(date);  
-		
+		Date date=new Date(millis);  
+		System.out.println(date);  
+
 		String username = request.getParameter("username");
 		String plaintextPw = request.getParameter("userpassword");
 
@@ -81,69 +81,74 @@ public class SignUpServlet extends HttpServlet {
 			System.out.println("No such algorithm.");
 			e1.printStackTrace();
 		}
-		
+
 		password = password.substring(0, 20);
 		System.out.println("The password after hashing and truncating is " + password);
-		
-		try {
-	    	   Connection conn = MySQLConnUtils.getMySQLConnection();
-		       System.out.println("Get connection " + conn);
-		       String sql = "SELECT Id FROM Person WHERE Id='" + username + "';";
-		       PreparedStatement statement = conn.prepareStatement(sql);
-			
-		       // Execute SQL statement returns a ResultSet object.
-		       ResultSet rs = statement.executeQuery(sql);
-		       if(rs.next()){
-		    	   //Username exists
-		    	   System.out.println("Username Taken");
-		       }else{
-		    	   sql = "SELECT COUNT(*) AS total FROM Customer";
-		    	   statement = conn.prepareStatement(sql);
-		    	   rs = statement.executeQuery(sql);
-		    	   
-		    	   rs.next();
-		    	   accountnumber = rs.getInt("total");
-		    	   System.out.println("Accounts: " + accountnumber);
-		    	   accountnumber++;
-		    	   System.out.println("Accounts: " + accountnumber);
-		    	   
-		    	   
-		    	   sql = "INSERT INTO Customer (Id, AccountNo, CreditCardNo, Email, CreationDate, Rating, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		    	   statement = conn.prepareStatement(sql);
-		    	   statement.setString(1, username);
-		    	   statement.setInt(2, accountnumber);
-		    	   statement.setString(3, "");
-		    	   statement.setString(4, email);
-		    	   statement.setDate(5, date);
-		    	   statement.setInt(6, 0);
-		    	   statement.setString(7, password);
-		    	   statement.execute();
-		    	   
-		    	   sql = "INSERT INTO Person (Id, FirstName, LastName, Address, City, State, ZipCode) VALUES (?, ?, ?, ? ,? ,?,?)";
-		    	   statement = conn.prepareStatement(sql);
-		    	   statement.setString(1, username);
-		    	   statement.setString(2, firstname);
-		    	   statement.setString(3, lastname);
-		    	   statement.setString(4, address1);
-		    	   statement.setString(5, city);
-		    	   statement.setString(6, state);
-		    	   statement.setInt(7, Integer.parseInt(zipcode));  	   
-		    	   statement.execute();
-		    	   
-		    	   request.getRequestDispatcher("/usercreated.jsp").forward(request, response);
-		       }
-		    	   
-		      
-	       } catch (SQLException | ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		System.out.println("user " + username + " pass " + password);
-		
-		
 
-		
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			System.out.println("Get connection " + conn);
+			String sql = "SELECT Username FROM UserAccounts WHERE Username='" + username + "';";
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			// Execute SQL statement returns a ResultSet object.
+			ResultSet rs = statement.executeQuery(sql);
+			if(rs.next()){
+				//Username exists
+				System.out.println("Username Taken");
+				/* TODO: Reload the signup form for the user
+				 * Optional: Repopulate form fields
+				 */
+			}else{
+				sql = "SELECT MAX(AccountNo) FROM Customer;";
+				statement = conn.prepareStatement(sql);
+				rs = statement.executeQuery(sql);
+
+				rs.next();
+				accountnumber = rs.getInt(1);
+				System.out.println("Accounts: " + accountnumber);
+				accountnumber++;
+				System.out.println("Accounts: " + accountnumber);
+
+
+				sql = "INSERT INTO Customer (Id, AccountNo, CreditCardNo, Email, CreationDate, Rating, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				statement = conn.prepareStatement(sql);
+				statement.setString(1, username);
+				statement.setInt(2, accountnumber);
+				statement.setString(3, "");
+				statement.setString(4, email);
+				statement.setDate(5, date);
+				statement.setInt(6, 0);
+				statement.setString(7, password);
+				statement.execute();
+
+				sql = "INSERT INTO Person (Id, FirstName, LastName, Address, City, State, ZipCode) VALUES (?, ?, ?, ? ,? ,?,?)";
+				statement = conn.prepareStatement(sql);
+				statement.setString(1, username);
+				statement.setString(2, firstname);
+				statement.setString(3, lastname);
+				statement.setString(4, address1);
+				statement.setString(5, city);
+				statement.setString(6, state);
+				statement.setInt(7, Integer.parseInt(zipcode));  	   
+				statement.execute();
+
+				request.getRequestDispatcher("/usercreated.jsp").forward(request, response);
+			}
+			rs.close();
+			statement.close();
+			conn.close();
+
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println("user " + username + " pass " + password);
+
+
+
+
 	}
 
 }

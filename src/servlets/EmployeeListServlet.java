@@ -19,7 +19,7 @@ import servlets.MySQLConnUtils;
 /**
  * Servlet implementation class EmployeeListServlet
  */
-@WebServlet("/EmployeeListServlet")
+@WebServlet("/Employees")
 public class EmployeeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -92,8 +92,9 @@ public class EmployeeListServlet extends HttpServlet {
 		       request.setAttribute("rowVal", list);
 		       
 		       //IMPORTANT CHANGE FORWARD ADDRESS
-		       
-		       request.getRequestDispatcher("/Manager.jsp").forward(request, response);
+
+		       request.getRequestDispatcher("/Manager/Results.jsp").forward(request, response);
+
 //		       RequestDispatcher dispatcher = request.getServletContext().
 //		    		   getRequestDispatcher("/flights.jsp");
 //		       dispatcher.forward(request, response);
