@@ -14,33 +14,19 @@
 			   	<li class="active"><a data-toggle="pill" href="#resr-option">Reservations</a></li>
 			   	<li><a data-toggle="pill" href="#flights-option">Flights</a></li>
 			   	<li><a data-toggle="pill" href="#bids-option">Bids</a></li>
-<!-- 			   <li class="active"><a href="#employee-option">Employees</a></li> -->
-<!-- 			   <li><a href="#sales-option">Sales</a></li> -->
-<!-- 			   <li><a href="/ReverseOreo/flightlist">Flights</a></li> -->
-<!-- 			   <li><a href="#resr-option">Reservations</a></li> -->
 			 </ul>
 		</div>
 		<div class="panel-body tab-content">
-			<div id="flights-option" class="tab-pane fade in active">
-				
+			<div id="resr-option" class="tab-pane fade in active">
+				<jsp:include page="ReservationTab.jsp"></jsp:include>
 			</div>
+			
+			<div id="flights-option" class="tab-pane fade">
+				<jsp:include page="FlightTab.jsp"></jsp:include>
+			</div>
+			
 			<div id="bids-option" class="tab-pane fade">
-				
-			</div>
-		
-			<div id="resr-option" class="tab-pane fade">
-				<div class="col-sm-12">
-					<form class="form-horizontal" action="ListAllResrServlet" method="post">
-						<div class="form-group col-sm-12">
-						    <div class="col-sm-4">
-						        <label for="allResr">View All Reservations:</label>
-						    </div>
-						    <div class="col-sm-4">
-						    	<button type="submit" class="btn btn-default">View</button>
-							</div>
-						</div>
-					</form>
-				</div>
+				<jsp:include page="BidTab.jsp"></jsp:include>
 			</div>
 
 		</div>			
