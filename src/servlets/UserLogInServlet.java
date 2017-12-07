@@ -17,9 +17,11 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /* For hashing */
 import java.security.MessageDigest;
@@ -27,6 +29,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class UserLogInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	/* For tracking expiration for users */
+	private static final int EXPIRE_IN_MINUTES = 5;
 
 
 	public UserLogInServlet(){
@@ -77,8 +82,14 @@ public class UserLogInServlet extends HttpServlet {
 			if(rs.next()){
 				//Username exists
 				System.out.println("Username Logged in");
-//				RequestDispatcher rd = request.getRequestDispatcher("HomePage.jsp");  
-//				rd.include(request,response); 
+				/* For login */
+				HttpSession session = request.getSession();
+				session.setAttribute("user", username);
+				/* For logout expiration */
+				Cookie userCookie = new Cookie("user", username);
+				userCookie.setMaxAge(EXPIRE_IN_MINUTES*60);
+				response.addCookie(userCookie);
+				
 				response.sendRedirect("HomePage.jsp");
 			}else{
 				out.print("<p style=\"color:red\">Invalid Username or Password</p>");
