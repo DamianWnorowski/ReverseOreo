@@ -44,6 +44,7 @@
         		} else {
         			%>
         			<li><a href="/ReverseOreo/signup.jsp"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+        			<li><a href="/ReverseOreo/Help.jsp"><span class="glyphicon glyphicon-flag"></span>Help</a></li>
         			<%
         		}
         	}
