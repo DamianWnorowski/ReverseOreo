@@ -18,15 +18,15 @@ try{
 	
 
 	String AccNo = "";
-	String user = (String)session.getAttribute("user");
+	String user = ((filters.User)session.getAttribute("user")).getUsername();
 	PreparedStatement statement;
 	ResultSet rsAccNo;
 	ResultSet rs;
 	//Checking whether or not to get active resr or all resr
 	if(allResr == "yes"){											//ALL
 		//Getting the Account number correspoding to the username which is saved in the session
-		user = (String)session.getAttribute("user");
-		String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = " + 2 + ";";
+		user = ((filters.User)session.getAttribute("user")).getUsername();
+		String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = '" + user + "';";
 		statement= conn.prepareStatement(sqlGetAccNo);
 		rsAccNo = statement.executeQuery(sqlGetAccNo);
 		while(rsAccNo.next()){
@@ -40,8 +40,8 @@ try{
 	}
 	else{											//CURRENT
 		//Getting the Account number correspoding to the username which is saved in the session
-		user = (String)session.getAttribute("user");
-		String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = " + 2 + ";";
+		user = ((filters.User)session.getAttribute("user")).getUsername();
+		String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = '" + user + "';";
 		statement= conn.prepareStatement(sqlGetAccNo);
 		rsAccNo = statement.executeQuery(sqlGetAccNo);
 		while(rsAccNo.next()){
