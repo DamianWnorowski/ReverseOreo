@@ -1,28 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<form class="form-horizontal" action="ListAllResrServlet" method="post">
-	<div class="form-group col-sm-12">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+function getCurrResr() {
+	var url = "GetResrList.jsp?all=no";
+	var aj = $.post(url, function(data){
+		$('body').find('#curr-result').html(data);
+	}, 'html');
+	
+	aj.always(function() {
+	  });
+}
+
+function getAllResr() {
+	var url = "GetResrList.jsp?all=yes";
+	$.post(url, function(data){
+		$('body').find('#all-result').html(data);
+	}).aj.always(function() {
+	  });
+}
+
+</script>
+
+
+<div class="form-group col-sm-12">
 	    <div class="col-sm-5">
 	        <label for="allActiveReservations">Current Reservations:</label>
 	    </div>
 	    <div class="col-sm-5">
-	    	<button type="submit" class="btn btn-default">View</button>
+	    	<button type="button" class="btn btn-default" onclick="getCurrResr()">View</button>
 		</div>
-	</div>
-</form>
+</div>
 
-<form class="form-horizontal" action="ListAllResrServlet" method="post">
+<div class="panel-body tab-content">
+	<div id="curr-result" ></div>
+</div>
+
+
 	<div class="form-group col-sm-12">
 	    <div class="col-sm-5">
 	        <label for="allReservations">All Reservations:</label>
 	    </div>
 	    <div class="col-sm-5">
-	    	<button type="View" class="btn btn-default">View</button>
+	    	<button type="button" onClick="getAllResr()" class="btn btn-default">View</button>
 		</div>
 	</div>
-</form>
+	
+<div class="panel-body tab-content">
+	<div id="all-result" ></div>
+</div>
+
 
 <form class="form-horizontal" action="ListResrByNameServlet">
 	<div class="form-group col-sm-12">
@@ -39,3 +69,6 @@
 
 	</div>
 </form>
+
+<br></br>
+		
