@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
-//@WebServlet(urlPatterns = { "/flightlist" })
+//@WebServlet(urlPatterns = { "/flight" })
 public class AllFlights extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
