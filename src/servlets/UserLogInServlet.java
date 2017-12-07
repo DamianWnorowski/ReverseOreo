@@ -17,9 +17,11 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /* For hashing */
 import java.security.MessageDigest;
@@ -27,6 +29,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class UserLogInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	/* For tracking expiration for users */
+	private static final int EXPIRE_IN_MINUTES = 1;
 
 
 	public UserLogInServlet(){
@@ -69,16 +74,22 @@ public class UserLogInServlet extends HttpServlet {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
-			String sql = "SELECT Id FROM Customer WHERE Id='" + username + "' AND Password='"+ password + "';";
+			String sql = "SELECT Username FROM UserAccounts WHERE Username='" + username + "';";
 			PreparedStatement statement = conn.prepareStatement(sql);
 
 
 			ResultSet rs = statement.executeQuery(sql);
 			if(rs.next()){
 				//Username exists
-				System.out.println("Username Logged in");
-//				RequestDispatcher rd = request.getRequestDispatcher("HomePage.jsp");  
-//				rd.include(request,response); 
+				System.out.println("Logged in");
+				/* For login */
+				HttpSession session = request.getSession();
+				session.setAttribute("user", username);
+				/* For logout expiration */
+				Cookie userCookie = new Cookie("user", username);
+				userCookie.setMaxAge(EXPIRE_IN_MINUTES*60);
+				response.addCookie(userCookie);
+				
 				response.sendRedirect("HomePage.jsp");
 			}else{
 				out.print("<p style=\"color:red\">Invalid Username or Password</p>");
