@@ -12,6 +12,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/ReverseOreo/signup.jsp"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+            <!-- <li><a href="/ReverseOreo/login.jsp"><span class="glyphicon glyphicon-log-in"></span>Login</a></li> -->
             <li><a href="/ReverseOreo/login.jsp"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
         </ul>
     </div>

@@ -30,7 +30,6 @@ public class LoginFilter implements Filter{
 
 		HttpSession session = req.getSession(false);
 		
-		
 		/* if first access or timeout */
 		if(session == null) {
 			System.out.println("Unauthorized access request");
