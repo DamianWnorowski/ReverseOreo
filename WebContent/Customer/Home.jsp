@@ -4,6 +4,7 @@
 
 
 <html>
+
 <jsp:include page="_head.jsp"></jsp:include>
 <jsp:include page="_nav.jsp"></jsp:include>
 
@@ -11,8 +12,8 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"> 
 			<ul class="nav nav-pills">
-			   	<li class="active"><a data-toggle="pill" href="#resr-option">Reservations</a></li>
-			   	<li><a data-toggle="pill" href="#flights-option">Flights</a></li>
+			   	<li class="active"><a data-toggle="pill" href="#resr-option" onClick="javascript:$('#curr-result').html('');$('#all-result').html('')">Reservations</a></li>
+			   	<li><a data-toggle="pill" href="#flights-option" onClick="javascript:$('#sugg-result').html('');$('#best-result').html('')">Flights</a></li>
 			   	<li><a data-toggle="pill" href="#bids-option">Bids</a></li>
 			 </ul>
 		</div>
@@ -29,7 +30,9 @@
 				<jsp:include page="BidTab.jsp"></jsp:include>
 			</div>
 
-		</div>			
+		</div>	
+		
+			
 	</div>
 </div>
 </html>

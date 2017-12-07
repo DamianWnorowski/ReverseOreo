@@ -10,31 +10,83 @@
 
 <%
 
+try{
 	System.out.println("Building table list");
 	Connection conn = MySQLConnUtils.getMySQLConnection();
 	System.out.println("Get connection " + conn);
-	String sql = "SELECT * FROM ReservationPassenger";
-	PreparedStatement statement = conn.prepareStatement(sql);
-	ResultSet rs = statement.executeQuery(sql);
+	String allResr = request.getParameter("all");
+	
+
+	String AccNo = "";
+	String user = (String)session.getAttribute("user");
+	PreparedStatement statement;
+	ResultSet rsAccNo;
+	ResultSet rs;
+	//Checking whether or not to get active resr or all resr
+	if(allResr == "yes"){											//ALL
+		//Getting the Account number correspoding to the username which is saved in the session
+		user = (String)session.getAttribute("user");
+		String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = " + 2 + ";";
+		statement= conn.prepareStatement(sqlGetAccNo);
+		rsAccNo = statement.executeQuery(sqlGetAccNo);
+		while(rsAccNo.next()){
+			AccNo = rsAccNo.getString(1);
+		}
+		
+		//Starting the SQL Statement for getting the reservations
+		String sql = "SELECT * FROM ReservationPassenger R WHERE R.AccountNo = " + AccNo + ";";
+		statement = conn.prepareStatement(sql);
+		rs = statement.executeQuery(sql);
+	}
+	else{											//CURRENT
+		//Getting the Account number correspoding to the username which is saved in the session
+		user = (String)session.getAttribute("user");
+		String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = " + 2 + ";";
+		statement= conn.prepareStatement(sqlGetAccNo);
+		rsAccNo = statement.executeQuery(sqlGetAccNo);
+		while(rsAccNo.next()){
+			AccNo = rsAccNo.getString(1);
+		}
+		
+		//Starting the SQL Statement for getting the reservations
+		String sql = "SELECT * FROM ReservationPassenger R WHERE R.AccountNo = " + AccNo + ";";
+		statement = conn.prepareStatement(sql);
+		rs = statement.executeQuery(sql);
+	}
 
 
-	List<beans.flight> list = new ArrayList<beans.flight>();
+	List<beans.ReservationPassengerListBeans> list = new ArrayList<beans.ReservationPassengerListBeans>();
 	while (rs.next()) {
-		String airlineId = rs.getString(1);
-		String flightNo = rs.getString(2);
-		beans.flight f = new beans.flight();
-		f.setAirlineId(airlineId);
-		f.setFlightNo(flightNo);
-		f.setList();
-		list.add(f);
+		String ResrNo = rs.getString(1);
+		String Id = rs.getString(2);
+		String AccountNo = rs.getString(3);
+		String SeatNo = rs.getString(4);
+		String Class = rs.getString(5);
+		String Meal = rs.getString(6);
+		beans.ReservationPassengerListBeans rl = new beans.ReservationPassengerListBeans();
+		rl.setResrNo(ResrNo);
+		rl.setId(Id);
+		rl.setAccountNo(AccountNo);
+		rl.setSeatNo(SeatNo);
+		rl.setTheClass(Class);
+		rl.setMeal(Meal);
+		rl.setList();
+		list.add(rl);
 
 	}
+	
 	List<String> colNames = new ArrayList<String>();
-	colNames.add("Airline Name");
-	colNames.add("Flight Number");
+	colNames.add("Reservation No.");
+	colNames.add("Id");
+	colNames.add("Account No.");
+	colNames.add("Seat No.");
+	colNames.add("Class");
+	colNames.add("Meal");
 
 	request.setAttribute("colNames", colNames);
 	request.setAttribute("rowVal", list);
+	System.out.println("END");
+	
 %>
 
 	<table class="table table-striped">
@@ -59,6 +111,11 @@
 	
 <%
 	rs.close();
+	rsAccNo.close();
 	statement.close();
 	conn.close();
+} catch (SQLException | ClassNotFoundException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
 %>
