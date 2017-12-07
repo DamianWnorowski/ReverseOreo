@@ -85,7 +85,6 @@ public class AddNewEmployeeServlet extends HttpServlet {
 		System.out.println("The password after hashing and truncating is " + password);
 
 		try {
-<<<<<<< HEAD
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
 			String sql = "SELECT Id FROM Employee WHERE Id='" + id + "';";
@@ -121,59 +120,14 @@ public class AddNewEmployeeServlet extends HttpServlet {
 
 
 				request.getRequestDispatcher("/Manager/Home.jsp").forward(request, response);
-=======
-	    	   Connection conn = MySQLConnUtils.getMySQLConnection();
-		       System.out.println("Get connection " + conn);
-		       String sql = "SELECT Id FROM Employee WHERE Id='" + id + "';";
-		       PreparedStatement statement = conn.prepareStatement(sql);
-			
-		       // Execute SQL statement returns a ResultSet object.
-		       ResultSet rs = statement.executeQuery(sql);
-		       if(rs.next()){
-		    	   //Username exists
-		    	   System.out.println("Username Taken");
-		       }else{
-		    	   sql = "INSERT INTO Employee (Id, SSN, IsManager, StartDate, HourlyRate, Password) VALUES (?, ?, ?, ? ,? ,?)";
-		    	   statement = conn.prepareStatement(sql);
-		    	   statement.setString(1, id);
-		    	   statement.setInt(2, Integer.parseInt(ssn));
-		    	   statement.setInt(3, isManager);
-		    	   statement.setDate(4, date);
-		    	   statement.setFloat(5, rate);  	   
-		    	   statement.setString(6, password);
-		    	   statement.execute();
-		    	   
-		    	   sql = "INSERT INTO Person (Id, FirstName, LastName, Address, City, State, ZipCode) VALUES (?, ?, ?, ? ,? ,?,?)";
-		    	   statement = conn.prepareStatement(sql);
-		    	   statement.setString(1, id);
-		    	   statement.setString(2, firstname);
-		    	   statement.setString(3, lastname);
-		    	   statement.setString(4, address1 +" "+ address2);
-		    	   statement.setString(5, city);
-		    	   statement.setString(6, state);
-		    	   statement.setInt(7, Integer.parseInt(zipcode));  	   
-		    	   statement.execute();
-		    	   
-		    	   
-		    	   
-		    	   request.getRequestDispatcher("/Manager/Home.jsp").forward(request, response);
-		       }
-		    	   
-		      
-	       } catch (SQLException | ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
->>>>>>> master
 			}
+
 			rs.close();
 			statement.close();
 			conn.close();
-
-
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-
 		}
 
 

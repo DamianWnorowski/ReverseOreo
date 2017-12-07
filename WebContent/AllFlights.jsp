@@ -20,18 +20,18 @@
 
 	List<beans.flight> list = new ArrayList<beans.flight>();
 	while (rs.next()) {
-		String airplaneId = rs.getString(1);
-		String airplaneName = rs.getString(2);
+		String airlineId = rs.getString(1);
+		String flightNo = rs.getString(2);
 		beans.flight f = new beans.flight();
-		f.setAirplaneId(airplaneId);
-		f.setAirplaneName(airplaneName);
+		f.setAirlineId(airlineId);
+		f.setFlightNo(flightNo);
 		f.setList();
 		list.add(f);
 
 	}
 	List<String> colNames = new ArrayList<String>();
-	colNames.add("Airplane Name");
-	colNames.add("Airplane ID");
+	colNames.add("Airline Name");
+	colNames.add("Flight Number");
 
 	request.setAttribute("colNames", colNames);
 	request.setAttribute("rowVal", list);
