@@ -59,7 +59,7 @@
 				        	<label for="flightNumber">Trip:</label>
 				        </div>
 				        <div class="col-sm-12">
-					    <select name="month">
+					    <select name="month"> 
 							<option value="oneway">One way</option>
 							<option value="round">Round Trip</option>						
 						</select>
