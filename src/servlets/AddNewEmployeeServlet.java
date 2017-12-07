@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AddNewEmployeeServlet
  */
-@WebServlet("/AddNewEmployeeServlet")
+//@WebServlet("/AddNewEmployeeServlet")
 public class AddNewEmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -119,7 +119,7 @@ public class AddNewEmployeeServlet extends HttpServlet {
 
 
 
-				request.getRequestDispatcher("/usercreated.jsp").forward(request, response);
+				request.getRequestDispatcher("/Manager/Home.jsp").forward(request, response);
 			}
 			rs.close();
 			statement.close();
@@ -129,7 +129,10 @@ public class AddNewEmployeeServlet extends HttpServlet {
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
 		}
+
+
 
 		System.out.println("user " + id + " pass " + password);
 	}
