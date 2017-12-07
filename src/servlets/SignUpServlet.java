@@ -132,6 +132,12 @@ public class SignUpServlet extends HttpServlet {
 				statement.setString(6, state);
 				statement.setInt(7, Integer.parseInt(zipcode));  	   
 				statement.execute();
+				
+				sql = "INSERT INTO UserAccounts (Username, Password) VALUES (?, ?)";
+				statement = conn.prepareStatement(sql);
+				statement.setString(1, username);
+				statement.setString(2, password); 	   
+				statement.execute();
 
 				request.getRequestDispatcher("/usercreated.jsp").forward(request, response);
 			}

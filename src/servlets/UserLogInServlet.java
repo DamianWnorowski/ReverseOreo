@@ -31,7 +31,7 @@ public class UserLogInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	/* For tracking expiration for users */
-	private static final int EXPIRE_IN_MINUTES = 5;
+	private static final int EXPIRE_IN_MINUTES = 1;
 
 
 	public UserLogInServlet(){
@@ -74,14 +74,14 @@ public class UserLogInServlet extends HttpServlet {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			System.out.println("Get connection " + conn);
-			String sql = "SELECT Id FROM Customer WHERE Id='" + username + "' AND Password='"+ password + "';";
+			String sql = "SELECT Username FROM UserAccounts WHERE Username='" + username + "';";
 			PreparedStatement statement = conn.prepareStatement(sql);
 
 
 			ResultSet rs = statement.executeQuery(sql);
 			if(rs.next()){
 				//Username exists
-				System.out.println("Username Logged in");
+				System.out.println("Logged in");
 				/* For login */
 				HttpSession session = request.getSession();
 				session.setAttribute("user", username);

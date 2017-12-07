@@ -39,7 +39,7 @@ public class LoginFilter implements Filter{
 			RequestDispatcher rd = req.getRequestDispatcher("login.jsp");
 			rd.include(req, res);
 			return;
-		} else if(uri.endsWith("UserLogInServlet") || uri.endsWith("SignUpServlet")) {
+		} else if(uri.endsWith("UserLogInServlet") || uri.endsWith("SignUpServlet") || uri.endsWith("signup.jsp")) {
 			System.out.println("No Access permissions required");
 			chain.doFilter(request, response);
 			return;
