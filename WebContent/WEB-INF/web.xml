@@ -66,6 +66,14 @@
     <url-pattern>/Manager/EmployeeListServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>recordreservation</servlet-name>
+    <servlet-class>servlets.RecordReservationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>recordreservation</servlet-name>
+    <url-pattern>/Employee/RecordReservationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>managersalesreport</servlet-name>
     <servlet-class>servlets.SalesReportServlet</servlet-class>
   </servlet>

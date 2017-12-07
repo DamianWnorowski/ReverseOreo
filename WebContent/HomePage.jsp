@@ -17,7 +17,6 @@
 		xhttp.open("GET", url, true);
 		xhttp.send();
 	}
-
 </script>
 
 <jsp:include page="_head.jsp"></jsp:include>
