@@ -6,14 +6,14 @@
 <script>
 function getBestFlight() {
 	var url = "GetBestSellingFlight.jsp?choice=best";
-	$.get(url, function(data){
+	$.post(url, function(data){
 		$('body').find('#best-result').html(data);
 	});
 }
 
 function getSuggFlight() {
 	var url = "GetBestSellingFlight.jsp?choice=sugg";
-	$.get("GetResrList.jsp", function(data){
+	$.post(url, function(data){
 		$('body').find('#sugg-result').html(data);
 	});
 }

@@ -1,3 +1,4 @@
+<%@page import="filters.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -16,8 +17,10 @@ try{
 	
 	String AccNo="";
 	String sql="";
-	String user = (String)session.getAttribute("user");
-	String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = " + 2 + ";";
+	filters.User user = new User();
+	user = (User)session.getAttribute("user");
+	String username = user.getUsername();
+	String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = '" + username + "';";
 	PreparedStatement state= conn.prepareStatement(sqlGetAccNo);
 	ResultSet rsAccNo = state.executeQuery(sqlGetAccNo);
 	while(rsAccNo.next()){
