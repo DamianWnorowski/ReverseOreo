@@ -74,6 +74,14 @@
     <url-pattern>/Employee/RecordReservationServlet</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>flightsuggestion</servlet-name>
+    <servlet-class>servlets.FlightSuggestionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>flightsuggestion</servlet-name>
+    <url-pattern>/Employee/FlightSuggestionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>managersalesreport</servlet-name>
     <servlet-class>servlets.SalesReportServlet</servlet-class>
   </servlet>
@@ -138,13 +146,13 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <filter>
-  	<filter-name>LoginFilter</filter-name>
-  	<filter-class>filters.LoginFilter</filter-class>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>filters.LoginFilter</filter-class>
   </filter>
   <filter-mapping>
-  	<filter-name>LoginFilter</filter-name>
-  	<url-pattern>/*</url-pattern>
-  	<servlet-name>servlets.UserLogInServlet</servlet-name>
-  	<dispatcher>REQUEST</dispatcher>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <servlet-name>servlets.UserLogInServlet</servlet-name>
+    <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
 </web-app>
