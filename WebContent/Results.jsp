@@ -32,7 +32,7 @@
 						Flights</a></li>
 				<li><a id="allflightsbtn" data-toggle="pill" data-target="#flight-list" onclick="getAllFlights()">All
 						Flights</a></li>
-				<li><a data-toggle="pill" data-target="#auctions">Auctions</a></li>
+<!-- 				<li><a data-toggle="pill" data-target="#auctions">Auctions</a></li> -->
 				<li class="active"><a data-toggle="pill" data-target="#results">Results</a></li>
 			</ul>
 		</div>
@@ -40,7 +40,7 @@
 		<!-- Content of the Home tabs -->
 		<div class="panel-body tab-content">
 			<div id="flight-search" class="tab-pane fade">
-				<form class="form-horizontal" action="/action_page.php">
+				<form class="form-horizontal" action="FlightSearchServlet">
 					<div class="form-group col-sm-4">
 						<div class="col-sm-12">
 							<label for="origin">Origin:</label> <input type="text"
@@ -56,11 +56,15 @@
 						</div>
 					</div>
 					<div class="col-sm-4">
-				        <label for="flightNumber">Trip</label>
-					    <select name="month">
+						<div class="col-sm-12">
+				        	<label for="flightNumber">Trip:</label>
+				        </div>
+				        <div class="col-sm-12">
+					    <select name="trip"> 
 							<option value="oneway">One way</option>
 							<option value="round">Round Trip</option>						
 						</select>
+						</div>
 				    </div>
 <!-- 					<div class="form-group col-sm-6"> -->
 <!-- 						<div class="col-sm-6"> -->
@@ -91,7 +95,7 @@
 <!-- 					</div> -->
 					<div class="form-group col-sm-12">
 						<div class="col-sm-4">
-							<button type="button" class="btn btn-default">Search</button>
+							<button type="submit" class="btn btn-default">Search</button>
 						</div>
 					</div>
 				</form>

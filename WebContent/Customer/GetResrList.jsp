@@ -1,3 +1,4 @@
+<%@page import="filters.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -18,15 +19,20 @@ try{
 	
 
 	String AccNo = "";
+
 	String user = ((filters.User)session.getAttribute("user")).getUsername();
+
 	PreparedStatement statement;
 	ResultSet rsAccNo;
 	ResultSet rs;
+	
 	//Checking whether or not to get active resr or all resr
 	if(allResr == "yes"){											//ALL
 		//Getting the Account number correspoding to the username which is saved in the session
+
 		user = ((filters.User)session.getAttribute("user")).getUsername();
 		String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = '" + user + "';";
+
 		statement= conn.prepareStatement(sqlGetAccNo);
 		rsAccNo = statement.executeQuery(sqlGetAccNo);
 		while(rsAccNo.next()){
@@ -40,8 +46,10 @@ try{
 	}
 	else{											//CURRENT
 		//Getting the Account number correspoding to the username which is saved in the session
+
 		user = ((filters.User)session.getAttribute("user")).getUsername();
 		String sqlGetAccNo = "SELECT AccountNo FROM Customer C WHERE C.Id = '" + user + "';";
+
 		statement= conn.prepareStatement(sqlGetAccNo);
 		rsAccNo = statement.executeQuery(sqlGetAccNo);
 		while(rsAccNo.next()){

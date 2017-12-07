@@ -7,7 +7,7 @@ import java.util.List;
 public class FlightLegBeans implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private String airlineId, flightNumber, legNumber, dept, arr, arrTime, deptTime;
+	private String airlineId, flightNumber, dept, arr, price;
 	private List<Object> list = new ArrayList<Object>();
 	
 	public FlightLegBeans(){
@@ -17,11 +17,9 @@ public class FlightLegBeans implements Serializable{
 	public void setList() {
 		this.list.add(this.airlineId);
 		this.list.add(this.flightNumber);
-		this.list.add(this.legNumber);
 		this.list.add(this.dept);
 		this.list.add(this.arr);
-		this.list.add(this.arrTime);
-		this.list.add(this.deptTime);
+		this.list.add(this.price);
 	}
 	
 	public List<Object> getList(){
@@ -29,6 +27,15 @@ public class FlightLegBeans implements Serializable{
 	}
 	
 	
+	
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
 	public String getAirlineId() {
 		return airlineId;
 	}
@@ -45,13 +52,6 @@ public class FlightLegBeans implements Serializable{
 		this.flightNumber = flightNumber;
 	}
 
-	public String getLegNumber() {
-		return legNumber;
-	}
-
-	public void setLegNumber(String legNumber) {
-		this.legNumber = legNumber;
-	}
 
 	public String getDept() {
 		return dept;
@@ -69,22 +69,5 @@ public class FlightLegBeans implements Serializable{
 		this.arr = arr;
 	}
 
-	public String getArrTime() {
-		return arrTime;
-	}
-
-	public void setArrTime(String arrTime) {
-		this.arrTime = arrTime;
-	}
-
-	public String getDeptTime() {
-		return deptTime;
-	}
-
-	public void setDeptTime(String deptTime) {
-		this.deptTime = deptTime;
-	}
-
-	
 	
 }
