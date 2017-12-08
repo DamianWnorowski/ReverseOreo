@@ -122,24 +122,49 @@
 			</div>
 			
 			<div id="results" class="tab-pane fade in active">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<c:forEach items="${colNames}" var="col">
-							<th>${col}</th>
-						</c:forEach>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${rowVal}" var="val">
+				<table class="table table-striped">
+					<thead>
 						<tr>
-							<c:forEach items="${val.list}" var="attr">
-								<td>${attr}</td>
+							<c:forEach items="${colNames}" var="col">
+								<th>${col}</th>
 							</c:forEach>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<c:forEach items="${rowVal}" var="val">
+							<tr>
+								<c:forEach items="${val.list}" var="attr">
+									<td>${attr}</td>
+								</c:forEach>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<form class="form-horizontal" action="CustomerReserveServlet" method="post">
+					<div class="form-group col-sm-4">	<!-- Last Name -->
+					    <div class="col-sm-12">
+					        <label for="flightid">Flight Id:</label>
+					        <input type="text" class="form-control" id="flightid" placeholder="Id" name="flightid">
+					    </div>
+					</div>
+					<div class="form-group col-sm-4">	<!-- Employee Id -->
+					    <div class="col-sm-12">
+					        <label for="flightnumber">Flight Number:</label>
+					        <input type="text" class="form-control" id="flightnumber" placeholder="Number" name="flightnumber">
+					    </div>
+					</div>
+					<div class="form-group col-sm-4">	<!-- Employee Id -->
+					    <div class="col-sm-12">
+					        <label for="origin">Origin:</label>
+					        <input type="text" class="form-control" id="origin" placeholder="Origin" name="origin">
+					    </div>
+					</div>
+					<div class="form-group col-sm-12">        
+						<div class="col-sm-4">
+					    	<button type="submit" class="btn btn-default">Reserve</button>
+						</div>
+					</div>
+				</form>
 			</div>
 			
 		</div>
