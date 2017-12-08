@@ -25,13 +25,13 @@ try{
 	ResultSet rs = statement.executeQuery(sql);
 
 
-	List<beans.CustomerBeans> list = new ArrayList<beans.CustomerBeans>();
+	List<String> list = new ArrayList<String>();
 	while (rs.next()) {
 		String accountNumber = rs.getString(2);	//Starting from second bc we do not want id
 		String CreditCard = rs.getString(3);
-		String email = rs.getString(3);
-		String date = rs.getString(3);
-		String rating = rs.getString(3);
+		String email = rs.getString(4);
+		String date = rs.getString(5);
+		String rating = rs.getString(6);
 
 		beans.CustomerBeans cb = new beans.CustomerBeans();
 		cb.setAccountNumber(accountNumber);
@@ -39,38 +39,39 @@ try{
 		cb.setEmail(email);
 		cb.setDate(date);
 		cb.setRating(rating);
-		cb.setList();
-		list.add(cb);
+		list.add(accountNumber);
+		list.add(CreditCard);
+		list.add(email);
+		list.add(date);
+		list.add(rating);
+		
 
 	}
 	List<String> colNames = new ArrayList<String>();
-	colNames.add("Airline Name");
-	colNames.add("Flight Number");
+	colNames.add("Account Number");
+	colNames.add("Credit Card");
+	colNames.add("Email");
+	colNames.add("Date Created");
+	colNames.add("Rating");
 
-	request.setAttribute("colNames", list);
-	request.setAttribute("rowVal", colNames);
+	request.setAttribute("colNames", colNames);
+	request.setAttribute("rowVal", list);
 %>
 
-	<table class="table table-striped">
-	<thead>
-		<tr>
-			<c:forEach items="${colNames}" var="val">
-				<tr>
-				<c:forEach items="${val.list}" var="attr">
-					<td>${attr}</td>
-				</c:forEach>
-				</tr>
-			</c:forEach>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach items="${rowVal}" var="col">
-			<tr>
-				<th>${col}</th>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>
+<table class="table table-striped">
+		<thead>
+	       <tr>
+	       <c:forEach items="${colNames}" var="col">
+	       		<th>${col}</th>
+	       </c:forEach>
+	       </tr>
+		</thead>
+		<tbody>
+	       <c:forEach items="${rowVal}" var="val" >
+	          	<td>${val}</td>
+	       </c:forEach>
+		</tbody>
+	</table>
 	
 	
 <%
