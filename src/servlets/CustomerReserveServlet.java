@@ -41,8 +41,8 @@ public class CustomerReserveServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		System.out.println("customer reserve servlet");
 		
-		String flightId = request.getParameter("flightId");
-		String flightNumber = request.getParameter("flightNumber");
+		String flightId = request.getParameter("flightid");
+		String flightNumber = request.getParameter("flightnumber");
 		String origin = request.getParameter("origin");
 		int resrNumber = 0;
 		
@@ -116,6 +116,18 @@ public class CustomerReserveServlet extends HttpServlet {
 			statement4.setInt(4, legNo);
 			statement4.setDate(5, date);
 			statement4.execute();
+			
+			String sql6 = "INSERT INTO ReservationPassenger(ResrNo, Id, AccountNo, SeatNo, Class, Meal) "
+					+ "VALUES(?, ?, ?, ?, ?, ?);";
+			
+			statement = conn.prepareStatement(sql6);
+			statement.setInt(1, resrNumber);
+			statement.setString(2, username);
+			statement.setInt(3, accountNo);
+			statement.setString(4, "2");
+			statement.setString(5, "regular");
+			statement.setString(6, "yummy");
+			statement.execute();
 			
 			
 			

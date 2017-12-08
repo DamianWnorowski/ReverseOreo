@@ -14,6 +14,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import filters.User;
 
 /**
  * Servlet implementation class RecordReservationServlet
@@ -36,6 +39,11 @@ public class RecordReservationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());	
+		
+		HttpSession session = request.getSession(false);
+		filters.User user = new User();
+		user = (User)session.getAttribute("user");
+		String username = user.getUsername();
 		
 		String accountNumber = request.getParameter("accountNumber");
 		String bookingFee = request.getParameter("bookingFee");
@@ -73,7 +81,19 @@ public class RecordReservationServlet extends HttpServlet {
 			statement.setString(5, repId);
 			statement.setString(6, accountNumber);
 			statement.execute();
-		    
+			
+			String sql6 = "INSERT INTO ReservationPassenger(ResrNo, Id, AccountNo, SeatNo, Class, Meal) "
+					+ "VALUES(?, ?, ?, ?, ?, ?);";
+			
+			statement = conn.prepareStatement(sql6);
+			statement.setInt(1, resrNumber);
+			statement.setString(2, username);
+			statement.setInt(3, Integer.parseInt(accountNumber));
+			statement.setString(4, "2");
+			statement.setString(5, "regular");
+			statement.setString(6, "yummy");
+			statement.execute();
+			
 	       
 			//IMPORTANT CHANGE FORWARD ADDRESS
 			request.getRequestDispatcher("/Employee/Home.jsp").forward(request, response);
