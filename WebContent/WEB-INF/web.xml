@@ -9,6 +9,16 @@
     <servlet-name>signup</servlet-name>
     <url-pattern>/SignUpServlet</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>custres</servlet-name>
+    <servlet-class>servlets.CustomerReserveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>custres</servlet-name>
+    <url-pattern>/CustomerReserveServlet</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>flightsearch</servlet-name>
     <servlet-class>servlets.FlightSearchServlet</servlet-class>
